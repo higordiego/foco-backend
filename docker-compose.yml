@@ -1,0 +1,28 @@
+version: '3.4'
+services:
+  mysql_foco:
+    container_name: mysql_foco
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: "foco"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "root"
+      MYSQL_ROOT_PASSWORD: "root"
+    ports:
+       - "3306:3306"
+    command: '--default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci'
+
+  backend_foco:
+    image: node:12.14
+    restart: always
+    container_name: backend_foco
+    volumes:
+        - .:/backend
+    ports:
+        - 3000:3000
+    environment:
+      HOST_DB: mysql_foco
+    command: bash -c "cd /backend && npm i && npx sequelize db:migrate && npm start"
+    depends_on:
+      - mysql_foco
