@@ -1,4 +1,4 @@
-# foco-backend
+# Backend
 
 ## Descrição do Case
 Uma organização está captando voluntários para uma determinada ação e seu objetivos é desenvolver uma aplicação onde os candidatos possam cadastrar seus dados, conferir as informações no documento de submissão (pré-formatado) e confirmar o envio dos dados para a organização, que receberá os dados via e-mail previamente cadastrado.
