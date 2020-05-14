@@ -398,8 +398,8 @@ exports.templates = hbs.compile(`
           <table class="email-content" width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td class="email-masthead">
-                <a href="https://finspect.me" class="email-masthead_name">
-                  Finspect
+                <a href="https://www.aluguefoco.com.br" class="email-masthead_name">
+                  Foco
                 </a>
               </td>
             </tr>
@@ -410,39 +410,13 @@ exports.templates = hbs.compile(`
                   <!-- Body content -->
                   <tr>
                     <td class="content-cell">
-                      <h1>Olá,</h1>
-                      <p>Recentemente, você solicitou redefinir sua senha para sua conta da Finspect. Use o botão abaixo para redefini-lo.<strong> Essa redefinição de senha só é válida pelas próximas 24 horas.</strong></p>
+                      <h1>Olá, {{name}}</h1>
+                      <p>{{{html}}}</p>
                       <!-- Action -->
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
-                        <tr>
-                          <td align="center">
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                              <tr>
-                                <td align="center">
-                                  <table border="0" cellspacing="0" cellpadding="0">
-                                    <tr>
-                                      <td>
-                                        <a href="{{actioncUrl}}" class="button button--green" target="_blank">Alterar Senha</a>
-                                      </td>
-                                    </tr>
-                                  </table>
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
                       </table>
                       <p>Obrigado,
-                        <br>Finspect Team</p>
-                      <!-- Sub copy -->
-                      <table class="body-sub">
-                        <tr>
-                          <td>
-                            <p class="sub">Se você estiver com problemas com o botão acima, copie e cole o URL abaixo em seu navegador da web..</p>
-                            <p class="sub">{{actioncUrl}}</p>
-                          </td>
-                        </tr>
-                      </table>
+                        <br>Foco Team</p>
                     </td>
                   </tr>
                 </table>
@@ -453,7 +427,7 @@ exports.templates = hbs.compile(`
                 <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0">
                   <tr>
                     <td class="content-cell" align="center">
-                      <p class="sub align-center">&copy; 2019 Finspect. All rights reserved.</p>
+                      <p class="sub align-center">&copy; 2019 Foco. All rights reserved.</p>
                     </td>
                   </tr>
                 </table>

@@ -1,6 +1,6 @@
-const { objectValidate, validation } = require('./case')
+const { objectValidate, validation, sendEmailCandidate } = require('./case')
 const { validateBody } = require('../../presenters/validate')
-const { sendEmail } = require('../../presenters/mailgun')
+
 exports.method = 'POST'
 
 exports.path = '/candidate'
@@ -11,17 +11,15 @@ exports.database = true
 
 exports.handler = database => async (req, res, next) => {
   try {
-    const { candidate } = database
+    const { candidate, submission } = database
     const body = {}
+
     validateBody(req.body, 'name', 'cpf', 'birthday', 'email', 'phone', 'accept')(body)
+
     const { create } = require('../../presenters/persistence')(candidate)
-    const data = {
-      from: 'noreply@finspect.me',
-      to: req.body.email,
-      subject: 'Hello from Mailgun',
-      html: 'Hello, This is not a plain-text email, I wanted to test some spicy Mailgun sauce in NodeJS! <a href="http://0.0.0.0:3030/validate?' + req.params.mail + '">Click here to add your email address to a mailing list</a>'
-    }
-    sendEmail(data)
+
+    const textSubmission = await submission.findOne({ where: { active: true }, raw: true })
+    sendEmailCandidate(body, textSubmission)
     create(res, next)(body)
   } catch (err) {
     next(err.message)

@@ -1,8 +1,12 @@
+const { sendEmail } = require('../../presenters/mailgun')
+const template = require('../../templates/candidate-html')
 const { body, validationResult } = require('express-validator')
 const { cpf } = require('cpf-cnpj-validator')
 
 const databaseFn = require('../../database/models')
 const models = databaseFn
+
+const moment = require('moment')
 
 exports.objectValidate = [
   body('name')
@@ -47,4 +51,30 @@ exports.validation = async (req, res, next) => {
   } catch (error) {
     res.status(500).json(error.message)
   }
+}
+
+exports.sendEmailCandidate = (body, submission) => {
+  let html = submissionRules(body, submission)
+  html = template.templates({ html, ...body })
+  sendEmail({ ...body, ...{ submission: process.env.MAILGUN_SUBMISSION_TEXT, from: submission.email } }, html)
+}
+
+const replace = (body, submission) => {
+  let documentation = String(submission.documentation)
+  body.dataEnvio = moment().format('DD/MM/YYYY')
+
+  body.nome = body.name
+  body.telefone = body.phone
+  body.dataNascimento = moment(body.birthday).format('DD/MM/YYYY')
+
+  var re = new RegExp(Object.keys(body).map(a => `@${a}`).join('|'), 'gi')
+  documentation = documentation.replace(re, (matched) => body[matched.replace('@', '')])
+
+  if (!body.accept) documentation = documentation.replace(body.email, '')
+
+  return documentation
+}
+
+const submissionRules = (body, submission) => {
+  if (submission) return replace(body, submission)
 }

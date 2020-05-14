@@ -19,7 +19,7 @@ exports.objectValidateCreate = [
     .not()
     .isEmpty()
     .custom((value, { req }) => {
-      if (typeof req.body.accept !== 'boolean') throw new Error('Por favor, envie se está ativo ou inativo!')
+      if (typeof req.body.active !== 'boolean') throw new Error('Por favor, envie se está ativo ou inativo!')
       else return true
     })
 ]
