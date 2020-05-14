@@ -12,7 +12,7 @@ exports.handler = database => async (req, res, next) => {
   try {
     const { submission } = database
     const body = {}
-    validateBody(req.body, 'email', 'documentation')(body)
+    validateBody(req.body, 'email', 'documentation', 'active')(body)
     const { create } = require('../../presenters/persistence')(submission)
     create(res, next)(body)
   } catch (err) {
