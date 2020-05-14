@@ -1,6 +1,6 @@
 
 module.exports = (sequelize, DataTypes) => {
-  const form = sequelize.define('form', {
+  const submission = sequelize.define('submission', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -25,5 +25,5 @@ module.exports = (sequelize, DataTypes) => {
 
   }, { paranoid: true })
 
-  return form
+  return submission
 }

@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true
       },
 
-      nome: {
+      name: {
         type: Sequelize.STRING(255),
         allowNull: false
       },
@@ -30,7 +30,7 @@ module.exports = {
       },
 
       phone: {
-        type: Sequelize.STRING(17),
+        type: Sequelize.STRING(20),
         allowNull: false
       },
 

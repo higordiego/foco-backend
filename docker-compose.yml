@@ -3,7 +3,6 @@ services:
   mysql_foco:
     container_name: mysql_foco
     image: mysql:5.7
-    restart: always
     environment:
       MYSQL_DATABASE: "foco"
       MYSQL_USER: "root"
@@ -21,8 +20,4 @@ services:
         - .:/backend
     ports:
         - 3000:3000
-    environment:
-      HOST_DB: mysql_foco
     command: bash -c "cd /backend && npm i && npx sequelize db:migrate && npm start"
-    depends_on:
-      - mysql_foco

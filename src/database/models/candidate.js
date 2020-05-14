@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
 
-    nome: {
+    name: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
 
-    CPF: {
+    cpf: {
       type: DataTypes.STRING(15),
       allowNull: false
     },
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     },
 
     phone: {
-      type: DataTypes.STRING(17),
+      type: DataTypes.STRING(20),
       allowNull: false
     },
 
