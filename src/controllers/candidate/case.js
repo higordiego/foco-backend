@@ -21,14 +21,16 @@ exports.objectValidate = [
     }),
   body('email')
     .isEmail(),
+
   body('phone')
     .isString()
     .isLength({ min: 14, max: 20 }),
+
   body('accept')
     .not()
     .isEmpty()
     .custom((value, { req }) => {
-      if (typeof req.body.accept !== 'boolean' || req.body.accept !== true) throw new Error('Por favor, aceite o contrato para poder continuar!')
+      if (typeof req.body.accept !== 'boolean') throw new Error('Por favor, informe se quer ser contada por email!')
       else return true
     })
 
