@@ -73,4 +73,21 @@ Desenvolvedores Back-End não precisam se preocupar com as camadas de Front. Fiq
 
 Fiquem a vontade para definir qualquer premissa (apenas destaque-as).
 
+# Mudança no Escopo
+
+A organização decidiu criar várias ações de voluntariado, de forma que haverá a necessidade da criação de um cadastro onde será indicado o nome da ação e a quantidade de voluntários da ação.
+
+Quando o candidato for realizar o cadastro, ele deverá selecionar a(s) ação(ões) a(s) qual(is) ele quer se candidatar e só devem ser apresentadas as ações que ainda há vagas disponíveis. Caso uma ação já tenha as vagas preenchidas, essa não deve aparecer para o candidato.
+
+Um candidato pode se candidatar a mais de uma ação.
+
+## Informações Necessárias
+
+### Dados do candidato:
+    Ação (adicional ao escopo original)
+### Dados da Ação:
+Nome (obrigatório)
+Quantidade de Candidatos (obrigatório)
+
+
 
