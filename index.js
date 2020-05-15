@@ -12,14 +12,9 @@ const { Logger } = require('./src/presenters/logger-info')
 
 const { RegisterError } = require('./src/presenters/errorLog')
 
-const { requestHandler, errorHandler } = require('./src/presenters/sentry')
-
 const { configCors } = require('./src/presenters/cors')
 
 const app = express()
-
-app.use(requestHandler())
-app.use(errorHandler())
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())
