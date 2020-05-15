@@ -1,3 +1,4 @@
+const { Op } = require('sequelize')
 const { sendEmail } = require('../../presenters/mailgun')
 const template = require('../../templates/candidate-html')
 const { body, validationResult } = require('express-validator')
@@ -12,6 +13,49 @@ exports.objectValidate = [
   body('name')
     .not()
     .isEmpty(),
+
+  body('actions')
+    .notEmpty()
+    .isArray()
+    .custom((_, { req }) => {
+      const actions = req.body.actions.map(val => Object.values(val)[0])
+
+      const validateNumber = actions.find(val => typeof val !== 'number')
+
+      if (validateNumber) throw new Error('Passe os ids do tipo numérico no campo action')
+      return true
+    })
+    .custom((_, { req }) => {
+      var valueArr = req.body.actions
+      const isDuplicated = valueArr.some((val, i) => valueArr.indexOf(val) !== i)
+
+      if (isDuplicated) throw new Error('Campos duplicados, por favor escolher só um de cada!')
+      return true
+    })
+    .custom(async (_, { req }) => {
+      const { action } = models
+
+      const validateIds = await Promise.all(req.body.actions.map(async (val) => {
+        const result = await action.findOne({ where: { id: val }, raw: true })
+        if (!result) return true
+        else return false
+      }))
+
+      if (validateIds.find(val => val)) throw new Error('Por favor passar um id em actions cadastrado no sistema!')
+    })
+    .custom(async (_, { req }) => {
+      const { action } = models
+      const validateAmount = await Promise.all(req.body.actions.map(async (acc, val) => {
+        const result = await action.findOne({ where: { id: val, amount: { [Op.eq]: 0 } }, raw: true })
+        if (result) return result
+        else return null
+      }))
+
+      const validate = validateAmount.find(val => val)
+      if (validate) throw new Error(`Ação de ${validate.name} já está preenchida, por favor escolha outra!`)
+      return true
+    }),
+
   body('birthday')
     .not()
     .isEmpty()
@@ -77,4 +121,12 @@ const replace = (body, submission) => {
 
 const submissionRules = (body, submission) => {
   if (submission) return replace(body, submission)
+}
+
+exports.createCandidateActions = (actions, candidate) => {
+  const { candidate_action: candidateAction, action } = models
+  return Promise.all(actions.map(async val => {
+    await candidateAction.create({ ActionId: val, CandidateId: candidate.id })
+    await action.decrement('amount', { by: 1, where: { id: val } })
+  }))
 }
