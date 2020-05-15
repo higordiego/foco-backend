@@ -1,3 +1,39 @@
+# Processo Seletivo 
+
+    Candidate: Higor Diego
+
+# Install dependencies
+
+- Dependencies Application: ` npm i `
+
+
+# Machine Local
+### Technologies needed
+- Nodejs 10.12 or superior
+- Mysql 5.7
+
+### Integration
+- Mailgun 
+
+### Start Application
+`npm start`
+
+### Access
+- Api: *http://localhost:3000*
+
+# Docker
+### Tecnologies needed
+- Docker 17.12.0
+- Docker Compose 1.18.0
+
+## Start Application
+`docker-compose up`
+
+### Access
+- Api: *http://localhost:3000*
+
+
+
 # Backend
 
 ## Descrição do Case
@@ -36,3 +72,5 @@ Desenvolvedores Back-End não precisam se preocupar com as camadas de Front. Fiq
 É importante explicar a estruturação do projeto e a lógica utilizada para montá-lo.
 
 Fiquem a vontade para definir qualquer premissa (apenas destaque-as).
+
+
